@@ -2,6 +2,15 @@ local utils = require("lspconfigplus.utils")
 
 local servers = {}
 
+servers["cmake"] = {
+    script_path = "servers/cmake.sh",
+    executable = utils.install_path("cmake") ..
+        "/venv/bin/cmake-language-server"
+}
+servers["clangd"] = {
+    script_path = "servers/clangd.sh",
+    executable = utils.install_path("clangd") .. "/clangd/bin/clangd"
+}
 servers["pyright"] = {
     script_path = "servers/pyright.sh",
     executable = utils.install_path("pyright") ..

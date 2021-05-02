@@ -22,16 +22,18 @@ It's as simple as replacing ``require('lspconfig')`` by ``require('lspconfigplus
 * `:LspUninstallAll` to uninstall all available language servers.
 
 ## Supported language servers so far
-| Language    | Language Server                   |
-|-------------|-----------------------------------|
-| bash        | bashls                            |
-| general     | efm                               |
-| latex       | texlab                            |
-| lua         | sumneko_lua                       |
-| python      | pyright                           |
-| typescript  | tsserver                          |
-| vim         | vimls                             |
-| yaml        | yamlls                            |
+| Language    | Language Server     |
+|-------------|---------------------|
+| bash        | bashls              |
+| c, cpp      | clangd              |
+| cmake       | cmake               |
+| general     | efm                 |
+| latex       | texlab              |
+| lua         | sumneko_lua         |
+| python      | pyright             |
+| typescript  | tsserver            |
+| vim         | vimls               |
+| yaml        | yamlls              |
 
 ## Examples
 #### simple configuration
