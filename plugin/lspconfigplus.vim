@@ -4,16 +4,16 @@
 " end
 " EOF
 
-function! lspconfigplus#install_server(server_name)
-  lua require("lspconfigplus")._root.install_server(a:server_name)
+function! lspconfigplus#install_server(server)
+    lua require("lspconfigplus")._root.install_server(vim.api.nvim_eval("a:server"))
 endfunction
 
-function! lspconfigplus#update_server(server_name)
-  lua require("lspconfigplus")._root.update_server(a:server_name)
+function! lspconfigplus#update_server(server)
+    lua require("lspconfigplus")._root.update_server(vim.api.nvim_eval("a:server"))
 endfunction
 
-function! lspconfigplus#uninstall_server(server_name)
-  lua require("lspconfigplus")._root.uninstall_server(a:server_name)
+function! lspconfigplus#uninstall_server(server)
+    lua require("lspconfigplus")._root.uninstall_server(vim.api.nvim_eval("a:server"))
 endfunction
 
 function! lspconfigplus#install_all_servers()

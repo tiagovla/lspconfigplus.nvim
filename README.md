@@ -24,12 +24,14 @@ It's as simple as replacing ``require('lspconfig')`` by ``require('lspconfigplus
 ## Supported language servers so far
 | Language    | Language Server                   |
 |-------------|-----------------------------------|
+| bash        | bashls                            |
 | general     | efm                               |
 | latex       | texlab                            |
 | lua         | sumneko_lua                       |
 | python      | pyright                           |
 | typescript  | tsserver                          |
 | vim         | vimls                             |
+| yaml        | yamlls                            |
 
 ## Examples
 #### simple configuration
