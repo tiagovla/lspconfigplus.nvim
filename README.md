@@ -1,7 +1,7 @@
-# lspconfigplus.nvim
+![logo](https://i.imgur.com/frat8YM.png)
 
 ## About
-This plugin extends the functionality of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) allowing asyncronous installation, update and uninstallation of language servers.
+This plugin extends the functionality of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) allowing asynchronous installation, update and removal of language servers.
 
 ## Installation
 
