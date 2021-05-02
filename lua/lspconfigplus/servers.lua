@@ -30,5 +30,15 @@ servers["vimls"] = {
     executable = utils.install_path("vimls") ..
         "/node_modules/.bin/vim-language-server"
 }
+servers["bashls"] = {
+    script_path = "servers/bashls.sh",
+    executable = utils.install_path("bashls") ..
+        "/node_modules/.bin/bash-language-server"
+}
+servers["yamlls"] = {
+    script_path = "servers/yamlls.sh",
+    executable = utils.install_path("yamlls") ..
+        "/node_modules/.bin/yaml-language-server"
+}
 
 return servers
