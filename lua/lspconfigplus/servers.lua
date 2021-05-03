@@ -7,6 +7,11 @@ servers["cmake"] = {
     executable = utils.install_path("cmake") ..
         "/venv/bin/cmake-language-server"
 }
+servers["dockerls"] = {
+    script_path = "servers/dockerls.sh",
+    executable = utils.install_path("dockerls") ..
+        "/node_modules/.bin/docker-langserver"
+}
 servers["clangd"] = {
     script_path = "servers/clangd.sh",
     executable = utils.install_path("clangd") .. "/clangd/bin/clangd"
