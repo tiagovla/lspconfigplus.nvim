@@ -132,5 +132,13 @@ function mt:__index(k)
     return lspconfigs[k]
 end
 
-return setmetatable(M, mt)
+M = setmetatable(M, mt)
 
+M.all = {}
+function M.all.setup(config)
+    for _, server in pairs(utils.installed_servers(servers)) do
+        M[server].setup(config)
+    end
+end
+
+return M
