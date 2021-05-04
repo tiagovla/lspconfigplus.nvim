@@ -10,3 +10,10 @@ formatters["isort"] = {
     script_path = "formatters/isort.sh",
     executable = utils.install_path("isort") .. "/venv/bin/isort"
 }
+
+formatters["cmakelang"] = {
+    script_path = "formatters/cmakelang.sh",
+    executable = utils.install_path("cmakelang") .. "/venv/bin/cmakelang"
+}
+
+return formatters
