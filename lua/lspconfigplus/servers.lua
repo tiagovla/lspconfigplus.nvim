@@ -1,7 +1,6 @@
 local utils = require("lspconfigplus.utils.helpers")
 
 local servers = {}
-servers._configured = {}
 
 servers["cmake"] = {
     script_path = "servers/cmake.sh",
@@ -48,14 +47,13 @@ servers["yamlls"] = {
     executable = utils.install_path("yamlls") .. "/node_modules/.bin/yaml-language-server",
 }
 
+local configured_servers = {}
 local mt = {}
 function mt:__index(k)
-    if servers[k] ~= nil then
-        if not vim.tbl_contains(servers._configured, k) and k ~= "_configured" then
-            table.insert(servers._configured, k)
-        end
-        return servers[k]
+    local server_found = servers[k]
+    if server_found then
+        configured_servers[k] = server_found
+        return server_found
     end
 end
-
-return setmetatable({}, mt)
+return setmetatable(configured_servers, mt)

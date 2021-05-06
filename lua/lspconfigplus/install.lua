@@ -4,7 +4,6 @@ local display = require("lspconfigplus.display")
 local logger = require("lspconfigplus.logger")
 
 local M = {}
-local configured_servers = servers._configured
 local local_path = utils.current_dir()
 
 function M.install_server(server_name)
@@ -27,19 +26,18 @@ function M.install_server(server_name)
     }, function(code, _)
         handle:close()
         if code ~= 0 then
-            -- logger.error(server_name, "failed to install.")
+            logger.error(server_name, "failed to install.")
             display:task_failed(server_name, "failed to install.")()
         else
-            -- logger.debug(server_name, "successfully installed.")
+            logger.debug(server_name, "successfully installed.")
             display:task_succeeded(server_name, "successfully installed.")()
         end
     end)
 end
 
 function M.install()
-    print("kek")
     display:open()
-    for _, server_name in pairs(configured_servers) do M.install_server(server_name) end
+    for server_name, _ in pairs(servers) do M.install_server(server_name) end
 end
 
 return M
