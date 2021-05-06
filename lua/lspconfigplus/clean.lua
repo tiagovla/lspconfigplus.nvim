@@ -10,7 +10,7 @@ function M._root.uninstall_server(server_name)
         print("lspconfig+: " .. server_name .. " not found.")
         return
     end
-    local install_path = utils.install_path(server_name)
+    local install_path = utils.install_server_pather_path(server_name)
     print("lspconfig+: " .. server_name .. " is being uninstalled.")
     vim.fn.mkdir(install_path, "p")
     handle = vim.loop.spawn("sh", {

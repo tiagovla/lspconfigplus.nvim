@@ -1,36 +1,55 @@
-local servers = require('lspconfigplus.servers')
-local utils = require('lspconfigplus.utils')
-local display = require('lspconfigplus.display')
+local servers = require("lspconfigplus.servers")
+local formatters = require("lspconfigplus.formatters")
+local linters = require("lspconfigplus.linters")
+local utils = require("lspconfigplus.utils.helpers")
+local display = require("lspconfigplus.display")
+local logger = require("lspconfigplus.logger")
 
 local M = {}
-local configured_servers = servers._configured
-local local_path = utils.current_dir()
 
-function M.update_server(server_name)
+function M.update_item(item_name, script_path, cwd_path)
     local handle = nil
-    if servers[server_name] == nil then
-        print("lspconfig+: " .. server_name .. " not found.")
-        return
-    end
-    local install_path = utils.install_path(server_name)
-    vim.fn.mkdir(install_path, "p")
-    display:task_start(server_name, "updating...")()
-    handle = vim.loop.spawn('sh', {
-        args = {local_path .. servers[server_name].script_path, 'update'},
-        cwd = install_path
-    }, function(code, _)
+    vim.fn.mkdir(cwd_path, "p")
+    local async
+    async = vim.loop.new_async(function()
+        display:task_start(item_name, "updating...")()
+        async:close()
+    end)
+    async:send()
+    handle = vim.loop.spawn("sh", {args = {script_path, "update"}, cwd = cwd_path},
+                            function(code, _)
         handle:close()
         if code ~= 0 then
-            display:task_failed(server_name, "failed to update.")()
+            logger.error(item_name, "failed to update.")
+            display:task_failed(item_name, "failed to update.")()
         else
-            display:task_succeeded(server_name, "successfully updated.")()
+            logger.debug(item_name, "successfully updated.")
+            display:task_succeeded(item_name, "successfully updated.")()
         end
     end)
 end
 
 function M.update()
     display:open()
-    for _, server_name in pairs(configured_servers) do M.update_server(server_name) end
+    local local_path = utils.current_dir()
+    for server_name, server_config in pairs(servers) do
+        local script_path = local_path .. server_config.script_path
+        local cwd_path = utils.install_server_path(server_name)
+        M.update_item(server_name, script_path, cwd_path)
+    end
+
+    for formatter_name, formatter_config in pairs(formatters) do
+        local script_path = local_path .. formatter_config.script_path
+        local cwd_path = utils.install_formatter_path(formatter_name)
+        M.update_item(formatter_name, script_path, cwd_path)
+
+    end
+
+    for linter_name, linter_config in pairs(linters) do
+        local script_path = local_path .. linter_config.script_path
+        local cwd_path = utils.install_linter_path(linter_name)
+        M.update_item(linter_name, script_path, cwd_path)
+    end
 end
 
 return M

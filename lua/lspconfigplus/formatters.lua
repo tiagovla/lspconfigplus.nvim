@@ -4,18 +4,27 @@ local formatters = {}
 
 formatters["yapf"] = {
     script_path = "formatters/yapf.sh",
-    executable = utils.install_path("yapf") .. "/venv/bin/yapf",
+    executable = utils.install_formatter_path("yapf") .. "/venv/bin/yapf",
     default_config = {
-        formatCommand = utils.install_path("yapf") .. "/venv/bin/yapf" .. " --quiet",
+        formatCommand = utils.install_formatter_path("yapf") .. "/venv/bin/yapf" .. " --quiet",
         formatStdin = true,
     },
 }
 
 formatters["isort"] = {
     script_path = "formatters/isort.sh",
-    executable = utils.install_path("isort") .. "/venv/bin/isort",
+    executable = utils.install_formatter_path("isort") .. "/venv/bin/isort",
     default_config = {
-        formatCommand = utils.install_path("isort") .. "/venv/bin/isort" .. " --quiet -",
+        formatCommand = utils.install_formatter_path("isort") .. "/venv/bin/isort" .. " --quiet -",
+        formatStdin = true,
+    },
+}
+
+formatters["lua_format"] = {
+    script_path = "formatters/lua_format.sh",
+    executable = utils.install_formatter_path("lua_format") .. "/build/lua-format",
+    default_config = {
+        formatCommand = utils.install_formatter_path("lua_format") .. "/build/lua-format",
         formatStdin = true,
     },
 }
