@@ -3,64 +3,14 @@
 "     if k:match(".*lspconfigplus.*") then package.loaded[k] = nil end
 " end
 " EOF
+if exists('g:lspconfigplus')
+  finish
+endif
+let g:lspconfigplus = 1
 
-function! lspconfigplus#install_server(server)
-    lua require("lspconfigplus")._root.install_server(vim.api.nvim_eval("a:server"))
-endfunction
+lua require('lspconfigplus.colors')
 
-function! lspconfigplus#update_server(server)
-    lua require("lspconfigplus")._root.update_server(vim.api.nvim_eval("a:server"))
-endfunction
-
-function! lspconfigplus#uninstall_server(server)
-    lua require("lspconfigplus")._root.uninstall_server(vim.api.nvim_eval("a:server"))
-endfunction
-
-function! lspconfigplus#install_all_servers()
-    lua require("lspconfigplus")._root.install_all_servers()
-endfunction
-
-function! lspconfigplus#update_all_servers()
-    lua require("lspconfigplus")._root.update_all_servers()
-endfunction
-
-function! lspconfigplus#uninstall_all_servers()
-    lua require("lspconfigplus")._root.uninstall_all_servers()
-endfunction
-
-function! lspconfigplus#install_configured_servers()
-    lua require("lspconfigplus")._root.install_configured_servers()
-endfunction
-
-function! lspconfigplus#available_servers()
-    return luaeval('require("lspconfigplus.utils").available_servers(require("lspconfigplus.servers"))')
-endfunction
-
-function! lspconfigplus#installed_servers()
-    return luaeval('require("lspconfigplus.utils").installed_servers(require("lspconfigplus.servers"))')
-endfunction
-
-function! lspconfigplus#not_installed_servers()
-    return luaeval('require("lspconfigplus.utils").not_installed_servers(require("lspconfigplus.servers"))')
-endfunction
-
-command! -nargs=1 -complete=custom,s:autocomplete_install LspInstall :call lspconfigplus#install_server('<args>')
-command! -nargs=1 -complete=custom,s:autocomplete_update LspUpdate :call lspconfigplus#update_server('<args>')
-command! -nargs=1 -complete=custom,s:autocomplete_uninstall LspUninstall :call lspconfigplus#uninstall_server('<args>')
-command! LspInstallAll :call lspconfigplus#install_all_servers()
-command! LspUpdateAll :call lspconfigplus#update_all_servers()
-command! LspUninstallAll :call lspconfigplus#uninstall_all_servers()
-command! LspInstallConfigured :call lspconfigplus#install_configured_servers()
-
-function! s:autocomplete_install(arg, line, pos) abort
-  return join(lspconfigplus#not_installed_servers(), "\n")
-endfunction
-
-function! s:autocomplete_update(arg, line, pos) abort
-  return join(lspconfigplus#installed_servers(), "\n")
-endfunction
-
-function! s:autocomplete_uninstall(arg, line, pos) abort
-  return join(lspconfigplus#installed_servers(), "\n")
-endfunction
-
+command! LspInstall :silent! lua require('lspconfigplus.install').install()
+command! LspUpdate :silent! lua require('lspconfigplus.update').update()
+command! LspClean :silent! lua require('lspconfigplus.clean').clean()
+command! LspStatus :silent! lua require('lspconfigplus.status').status()

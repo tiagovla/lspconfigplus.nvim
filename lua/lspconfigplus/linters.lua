@@ -1,4 +1,4 @@
-local utils = require("lspconfigplus.utils")
+local utils = require("lspconfigplus.utils.helpers")
 
 local linters = {}
 

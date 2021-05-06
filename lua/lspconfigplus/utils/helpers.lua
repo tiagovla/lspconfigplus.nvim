@@ -1,4 +1,4 @@
-local config = require('lspconfigplus.config')
+local config = require("lspconfigplus.config")
 local U = {}
 
 -- current directory
@@ -26,9 +26,9 @@ end
 
 -- table with non installed servers
 function U.not_installed_servers(servers)
-    return vim.tbl_filter(
-               function(key) return not U.is_server_installed(key) end,
-               U.available_servers(servers))
+    return vim.tbl_filter(function(key) return not U.is_server_installed(key) end,
+                          U.available_servers(servers))
 end
+
 
 return U
