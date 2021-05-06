@@ -35,6 +35,7 @@ It's as simple as replacing ``require('lspconfig')`` by ``require('lspconfigplus
 #### Formatters so far
 | Language    | Formatter           |
 |-------------|---------------------|
+| cmake       | cmakelang           |
 | lua         | lua                 |
 | python      | isort, yapf         |
 
