@@ -19,6 +19,14 @@ function U.is_server_installed(server_name)
     return vim.fn.isdirectory(U.install_server_path(server_name)) == 1
 end
 
+function U.is_formatter_installed(formatter_name)
+    return vim.fn.isdirectory(U.install_formatter_path(formatter_name)) == 1
+end
+
+function U.is_linter_installed(linter_name)
+    return vim.fn.isdirectory(U.install_linter_path(linter_name)) == 1
+end
+
 -- table with available lsp servers
 function U.available_servers(servers) return vim.tbl_keys(servers) end
 

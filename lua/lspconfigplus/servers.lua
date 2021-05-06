@@ -20,8 +20,7 @@ servers["pyright"] = {
 }
 servers["tsserver"] = {
     script_path = "servers/tsserver.sh",
-    executable = utils.install_server_path("tsserver") ..
-        "/node_modules/.bin/typescript-language-server",
+    executable = utils.install_server_path("tsserver") .. "/node_modules/.bin/typescript-language-server",
 }
 servers["sumneko_lua"] = {
     script_path = "servers/sumneko_lua.sh",

@@ -16,8 +16,7 @@ function M.update_item(item_name, script_path, cwd_path)
         async:close()
     end)
     async:send()
-    handle = vim.loop.spawn("sh", {args = {script_path, "update"}, cwd = cwd_path},
-                            function(code, _)
+    handle = vim.loop.spawn("sh", { args = { script_path, "update" }, cwd = cwd_path }, function(code, _)
         handle:close()
         if code ~= 0 then
             logger.error(item_name, "failed to update.")
@@ -42,7 +41,6 @@ function M.update()
         local script_path = local_path .. formatter_config.script_path
         local cwd_path = utils.install_formatter_path(formatter_name)
         M.update_item(formatter_name, script_path, cwd_path)
-
     end
 
     for linter_name, linter_config in pairs(linters) do

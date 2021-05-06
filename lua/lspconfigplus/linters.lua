@@ -6,11 +6,10 @@ linters["flake8"] = {
     script_path = "linters/flake8.sh",
     executable = utils.install_linter_path("flake8") .. "/venv/bin/flake8",
     default_config = {
-        lintCommand = utils.install_linter_path("flake8") .. "/venv/bin/flake8" ..
-            " --max-line-length 80 --stdin-display-name ${INPUT} -",
+        lintCommand = utils.install_linter_path("flake8") .. "/venv/bin/flake8" .. " --max-line-length 80 --stdin-display-name ${INPUT} -",
         lintStdin = true,
         lintIgnoreExitCode = true,
-        lintFormats = {"%f=%l:%c: %m"},
+        lintFormats = { "%f=%l:%c: %m" },
         lintSource = "flake8",
     },
 }

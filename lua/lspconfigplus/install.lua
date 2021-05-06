@@ -16,8 +16,7 @@ function M.install_item(item_name, script_path, cwd_path)
         async:close()
     end)
     async:send()
-    handle = vim.loop.spawn("sh", {args = {script_path, "install"}, cwd = cwd_path},
-                            function(code, _)
+    handle = vim.loop.spawn("sh", { args = { script_path, "install" }, cwd = cwd_path }, function(code, _)
         handle:close()
         if code ~= 0 then
             logger.error(item_name, "failed to install.")
@@ -33,22 +32,27 @@ function M.install()
     display:open()
     local local_path = utils.current_dir()
     for server_name, server_config in pairs(servers) do
-        local script_path = local_path .. server_config.script_path
-        local cwd_path = utils.install_server_path(server_name)
-        M.install_item(server_name, script_path, cwd_path)
+        if not utils.is_server_installed(server_name) then
+            local script_path = local_path .. server_config.script_path
+            local cwd_path = utils.install_server_path(server_name)
+            M.install_item(server_name, script_path, cwd_path)
+        end
     end
 
     for formatter_name, formatter_config in pairs(formatters) do
-        local script_path = local_path .. formatter_config.script_path
-        local cwd_path = utils.install_formatter_path(formatter_name)
-        M.install_item(formatter_name, script_path, cwd_path)
-
+        if not utils.is_formatter_installed(formatter_name) then
+            local script_path = local_path .. formatter_config.script_path
+            local cwd_path = utils.install_formatter_path(formatter_name)
+            M.install_item(formatter_name, script_path, cwd_path)
+        end
     end
 
     for linter_name, linter_config in pairs(linters) do
-        local script_path = local_path .. linter_config.script_path
-        local cwd_path = utils.install_linter_path(linter_name)
-        M.install_item(linter_name, script_path, cwd_path)
+        if not utils.is_linter_installed(linter_name) then
+            local script_path = local_path .. linter_config.script_path
+            local cwd_path = utils.install_linter_path(linter_name)
+            M.install_item(linter_name, script_path, cwd_path)
+        end
     end
 end
 

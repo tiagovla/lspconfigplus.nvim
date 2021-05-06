@@ -11,6 +11,15 @@ formatters["yapf"] = {
     },
 }
 
+formatters["stylua"] = {
+    script_path = "formatters/stylua.sh",
+    executable = utils.install_formatter_path("stylua") .. "/stylua",
+    default_config = {
+        formatCommand = utils.install_formatter_path("stylua") .. "/stylua -",
+        formatStdin = true,
+    },
+}
+
 formatters["isort"] = {
     script_path = "formatters/isort.sh",
     executable = utils.install_formatter_path("isort") .. "/venv/bin/isort",
@@ -31,7 +40,7 @@ formatters["lua_format"] = {
 
 formatters["cmakelang"] = {
     script_path = "formatters/cmakelang.sh",
-    executable = utils.install_formatter_path("cmakelang") .. "/venv/bin/cmakelang"
+    executable = utils.install_formatter_path("cmakelang") .. "/venv/bin/cmakelang",
 }
 
 local configured_formatters = {}
