@@ -33,7 +33,7 @@ function Log:dispatch(level, message)
     }
     for _, handler in pairs(self.handlers) do
         if self[level] > self[handler.level:upper()] then
-            handler.func(data)
+            vim.schedule_wrap(handler.func)(data)
         end
     end
 end
