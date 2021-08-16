@@ -11,6 +11,15 @@ formatters["yapf"] = {
     },
 }
 
+formatters["black"] = {
+    script_path = "formatters/black.sh",
+    executable = utils.install_formatter_path("black") .. "/venv/bin/black",
+    default_config = {
+        formatCommand = utils.install_formatter_path("black") .. "/venv/bin/black" .. " --quiet -",
+        formatStdin = true,
+    },
+}
+
 formatters["stylua"] = {
     script_path = "formatters/stylua.sh",
     executable = utils.install_formatter_path("stylua") .. "/stylua",
