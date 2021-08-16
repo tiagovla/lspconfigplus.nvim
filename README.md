@@ -37,7 +37,7 @@ It's as simple as replacing ``require('lspconfig')`` by ``require('lspconfigplus
 |-------------|---------------------|
 | cmake       | cmakelang           |
 | lua         | lua                 |
-| python      | isort, yapf         |
+| python      | isort, black, yapf  |
 
 #### Linters so far
 | Language    | Formatter           |
@@ -81,6 +81,7 @@ lspconfigplus.sumneko_lua.setup {
 ```lua
 local lspconfigplus = require('lspconfigplus')
 local isort = lspconfigplus.formatters.isort.setup {}
+local black = lspconfigplus.formatters.black.setup {}
 local yapf = lspconfigplus.formatters.yapf.setup {}
 local lua_format = lspconfigplus.formatters.lua_format.setup {}
 local efm_cfg = require('lspconfigplus.extra')["efm"]
