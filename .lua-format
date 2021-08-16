@@ -1,4 +1,4 @@
-align_args: true
+align_arg: true
 align_parameter: true
 align_table_field: true
 break_after_functioncall_lp: false
