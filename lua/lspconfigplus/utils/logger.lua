@@ -1,7 +1,7 @@
 local U = {}
 -- logger handlers
 local console_handler_highlights = {
-    DEBUG = "Comment",
+    DEBUG = "MoreMsg",
     INFO = "None",
     WARNING = "WarningMsg",
     ERROR = "ErrorMsg",
@@ -10,12 +10,11 @@ local console_handler_highlights = {
 
 function U.console_handler(data)
     local line_info = vim.fn.fnamemodify(data.info.short_src, ":t") .. ":" .. data.info.currentline
-    local strout = string.format("[%-6s %s] %s: %s", data.level, os.date("%H:%M:%S"), line_info,
-                                 data.message)
+    local strout = string.format("[%-6s %s] %s: %s", data.level, os.date("%H:%M:%S"), line_info, data.message)
     vim.cmd(string.format("echohl %s", console_handler_highlights[data.level]))
     local split_console = vim.split(strout, "\n")
     for _, v in ipairs(split_console) do
-        vim.cmd(string.format([[echom "[%s] %s"]], data.plugin:upper(), vim.fn.escape(v, "\"")))
+        vim.cmd(string.format([[echom "[%s] %s"]], data.plugin:upper(), vim.fn.escape(v, '"')))
     end
     vim.cmd("echohl NONE")
 end
@@ -28,8 +27,13 @@ function U.file_handler(data)
         return
     end
     local line_info = vim.fn.fnamemodify(data.info.short_src, ":t") .. ":" .. data.info.currentline
-    local strout = string.format("%-8s [ %s ] %s: %s", data.level, os.date("%Y-%m-%d %H:%M:%S"),
-                                 line_info, data.message .. "\n")
+    local strout = string.format(
+        "%-8s [ %s ] %s: %s",
+        data.level,
+        os.date("%Y-%m-%d %H:%M:%S"),
+        line_info,
+        data.message .. "\n"
+    )
     fp:write(strout)
     fp:close()
 end
