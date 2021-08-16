@@ -32,7 +32,7 @@ function Log:dispatch(level, message)
         plugin = "lspconfigplus",
     }
     for _, handler in pairs(self.handlers) do
-        if self[level] > self[handler.level:upper()] then
+        if self[level] >= self[handler.level:upper()] then
             vim.schedule_wrap(handler.func)(data)
         end
     end
