@@ -98,9 +98,7 @@ function Display:task_start(server, message)
         self:set_lines(2, 2, { fmt(" %s %s: %s", config.working_sym, server_, message_) })
         self.marks[server] = utils.set_extmark(self.buf, self.ns, nil, 2, 0)
     end
-    return vim.schedule_wrap(function()
-        fn(server, message)
-    end)
+    return vim.schedule_wrap(fn)(server, message)
 end
 
 function Display:task_succeeded(server, message)
@@ -114,9 +112,7 @@ function Display:task_succeeded(server, message)
         self.marks[server_] = nil
         self:decrement_headline_count()
     end
-    return vim.schedule_wrap(function()
-        fn(server, message)
-    end)
+    return vim.schedule_wrap(fn)(server, message)
 end
 
 function Display:task_failed(server, message)
@@ -130,9 +126,7 @@ function Display:task_failed(server, message)
         self.marks[server_] = nil
         self:decrement_headline_count()
     end
-    return vim.schedule_wrap(function()
-        fn(server, message)
-    end)
+    return vim.schedule_wrap(fn)(server, message)
 end
 
 function Display:task_update(server, message)
@@ -147,7 +141,7 @@ function Display:task_update(server, message)
         self:set_lines(line[1], line[1] + 1, { fmt(" %s %s: %s", config.working_sym, server_, message_) })
         utils.set_extmark(self.buf, self.ns, self.marks[server_], line[1], 0)
     end
-    return vim.schedule_wrap(fn(server, message))
+    return vim.schedule_wrap(fn)(server, message)
 end
 
 function Display:quit()

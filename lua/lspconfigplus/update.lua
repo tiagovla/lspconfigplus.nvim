@@ -10,20 +10,16 @@ local M = {}
 function M.update_item(item_name, script_path, cwd_path)
     local handle = nil
     vim.fn.mkdir(cwd_path, "p")
-    local async
-    async = vim.loop.new_async(function()
-        display:task_start(item_name, "updating...")()
-        async:close()
-    end)
-    async:send()
-    handle = vim.loop.spawn("sh", { args = { script_path, "update" }, cwd = cwd_path }, function(code, _)
+    display:task_start(item_name, "updating...")
+    handle = vim.loop.spawn("sh", {args = {script_path, "update"}, cwd = cwd_path},
+                            function(code, _)
         handle:close()
         if code ~= 0 then
             logger.error(item_name, "failed to update.")
-            display:task_failed(item_name, "failed to update.")()
+            display:task_failed(item_name, "failed to update.")
         else
             logger.debug(item_name, "successfully updated.")
-            display:task_succeeded(item_name, "successfully updated.")()
+            display:task_succeeded(item_name, "successfully updated.")
         end
     end)
 end

@@ -11,6 +11,15 @@ formatters["yapf"] = {
     },
 }
 
+formatters["shfmt"] = {
+    script_path = "formatters/shfmt.sh",
+    executable = utils.install_formatter_path("shfmt") .. "/shfmt",
+    default_config = {
+        formatCommand = utils.install_formatter_path("shfmt") .. "/shfmt",
+        formatStdin = true,
+    },
+}
+
 formatters["black"] = {
     script_path = "formatters/black.sh",
     executable = utils.install_formatter_path("black") .. "/venv/bin/black",

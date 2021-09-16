@@ -6,11 +6,21 @@ linters["flake8"] = {
     script_path = "linters/flake8.sh",
     executable = utils.install_linter_path("flake8") .. "/venv/bin/flake8",
     default_config = {
-        lintCommand = utils.install_linter_path("flake8") .. "/venv/bin/flake8" .. " --max-line-length 80 --stdin-display-name ${INPUT} -",
+        lintCommand = utils.install_linter_path("flake8") .. "/venv/bin/flake8" ..
+            " --max-line-length 80 --stdin-display-name ${INPUT} -",
         lintStdin = true,
         lintIgnoreExitCode = true,
-        lintFormats = { "%f=%l:%c: %m" },
+        lintFormats = {"%f=%l:%c: %m"},
         lintSource = "flake8",
+    },
+}
+
+linters["shellcheck"] = {
+    script_path = "linters/shellcheck.sh",
+    executable = utils.install_linter_path("shellcheck") .. "/bin/shellcheck",
+    default_config = {
+        lintCommand = utils.install_linter_path("shellcheck") .. "/bin/shellcheck" .. " -f gcc -x",
+        lintFormats = {"%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m"},
     },
 }
 

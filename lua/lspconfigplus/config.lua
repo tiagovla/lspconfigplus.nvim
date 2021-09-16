@@ -17,6 +17,7 @@ local config = {
     },
     logger = {
         handlers = {
+            -- levels: critical > error > warning > info > debug > noset
             console = { level = "debug", func = utils.console_handler },
             file = { level = "error", func = utils.file_handler },
         },
