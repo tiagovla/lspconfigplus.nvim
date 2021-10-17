@@ -2,6 +2,26 @@ local utils = require("lspconfigplus.utils.helpers")
 
 local formatters = {}
 
+formatters["pandoc_markdown"] = {
+    script_path = "formatters/pandoc.sh",
+    executable = utils.install_formatter_path("pandoc") .. "/bin/pandoc",
+    default_config = {
+        formatCommand = utils.install_formatter_path("pandoc")
+            .. "/bin/pandoc"
+            .. " -f markdown -t gfm -sp --tab-stop=2",
+        formatStdin = true,
+    },
+}
+
+formatters["pandoc_rst"] = {
+    script_path = "formatters/pandoc.sh",
+    executable = utils.install_formatter_path("pandoc") .. "/bin/pandoc",
+    default_config = {
+        formatCommand = utils.install_formatter_path("pandoc") .. "/bin/pandoc" .. " -f rst -t rst -s --columns=79",
+        formatStdin = true,
+    },
+}
+
 formatters["yapf"] = {
     script_path = "formatters/yapf.sh",
     executable = utils.install_formatter_path("yapf") .. "/venv/bin/yapf",
@@ -33,7 +53,7 @@ formatters["stylua"] = {
     script_path = "formatters/stylua.sh",
     executable = utils.install_formatter_path("stylua") .. "/stylua",
     default_config = {
-        formatCommand = utils.install_formatter_path("stylua") .. "/stylua -",
+        formatCommand = utils.install_formatter_path("stylua") .. "/stylua -s -",
         formatStdin = true,
     },
 }

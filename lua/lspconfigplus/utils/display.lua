@@ -3,11 +3,17 @@ local api = vim.api
 local logger = require("lspconfigplus.logger")
 
 function U.set_extmark(buf, ns, id, line, col)
-    if not api.nvim_buf_is_valid(buf) then return end
-    local opts = {id = id}
+    if not api.nvim_buf_is_valid(buf) then
+        return
+    end
+    local opts = { id = id }
     local result, mark_id = pcall(api.nvim_buf_set_extmark, buf, ns, line, col, opts)
-    if result then return mark_id end
-    if not id then id = 0 end
+    if result then
+        return mark_id
+    end
+    if not id then
+        id = 0
+    end
     return api.nvim_buf_set_extmark(buf, ns, id, line, col, {})
 end
 

@@ -6,6 +6,7 @@ servers["bashls"] = {
     script_path = "servers/bashls.sh",
     executable = utils.install_server_path("bashls") .. "/node_modules/.bin/bash-language-server",
 }
+
 servers["clangd"] = {
     script_path = "servers/clangd.sh",
     executable = utils.install_server_path("clangd") .. "/clangd/bin/clangd",
@@ -40,8 +41,7 @@ servers["texlab"] = {
 }
 servers["tsserver"] = {
     script_path = "servers/tsserver.sh",
-    executable = utils.install_server_path("tsserver") ..
-        "/node_modules/.bin/typescript-language-server",
+    executable = utils.install_server_path("tsserver") .. "/node_modules/.bin/typescript-language-server",
 }
 servers["vimls"] = {
     script_path = "servers/vimls.sh",
